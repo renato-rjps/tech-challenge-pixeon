@@ -22,6 +22,8 @@ import lombok.EqualsAndHashCode;
 @SequenceGenerator(name = "PRIMARY_KEY", sequenceName = "INSTITUTION_ID_SEQ", allocationSize = 1)
 public class HealthcareInstitution extends BaseEntity {
 
+	private static final long serialVersionUID = 1L;
+
 	@Size(max = 255)
 	@Column(length = 255, nullable = false)
 	private String name;

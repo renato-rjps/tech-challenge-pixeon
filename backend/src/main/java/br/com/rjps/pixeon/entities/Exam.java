@@ -23,6 +23,8 @@ import lombok.EqualsAndHashCode;
 @SequenceGenerator(name = "PRIMARY_KEY", sequenceName = "EXAM_ID_SEQ", allocationSize = 1)
 public class Exam extends BaseEntity {
 
+	private static final long serialVersionUID = 1L;
+
 	@NotBlank
 	@Size(max = 255)
 	@Column(nullable = false)
