@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CNPJ;
@@ -35,5 +36,9 @@ public class HealthcareInstitution extends BaseEntity {
 
 	@OneToMany(mappedBy = "healthcareInstitution", fetch = LAZY, cascade = ALL)
 	public Set<Exam> exams;
+	
+	@NotNull
+	@Size(max = 1000)
+	private Integer coins;
 
 }
