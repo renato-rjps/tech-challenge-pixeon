@@ -17,6 +17,7 @@ import br.com.rjps.examapi.model.HealthcareInstitution;
 
 @Configuration
 public class RestConfig implements RepositoryRestConfigurer {
+	
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration restConfig) {
 		ExposureConfiguration config = restConfig.getExposureConfiguration();
@@ -24,6 +25,12 @@ public class RestConfig implements RepositoryRestConfigurer {
 			.withItemExposure((metadata, httpMethods) -> httpMethods.disable(HEAD, PUT, PATCH, DELETE, OPTIONS, TRACE));
 		
 		config.forDomainType(Exam.class)
-			.withItemExposure((metadata, httpMethods) -> httpMethods.disable(HEAD, PATCH, OPTIONS, TRACE));
+			.withItemExposure((metadata, httpMethods) -> httpMethods.disable(HEAD, PUT, OPTIONS, TRACE));
+		
+		restConfig.exposeIdsFor(
+        		Exam.class, 
+        		HealthcareInstitution.class);
 	}
+	
+	
 }

@@ -5,6 +5,7 @@ import static javax.persistence.FetchType.LAZY;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
@@ -12,7 +13,11 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,13 +25,14 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @SequenceGenerator(name = "PRIMARY_KEY", sequenceName = "EXAM_ID_SEQ", allocationSize = 1)
 public class Exam extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@NotBlank
-	@Size(max = 255)
+	@Length(min=1, max = 255)
 	@Column(nullable = false)
 	private String patientName;
 
@@ -34,13 +40,12 @@ public class Exam extends BaseEntity {
 	@Min(1)
 	private Integer patientAge;
 
-	@Size(max = 20)
 	@Enumerated(STRING)
 	@Column(length = 20)
 	private Gender patientGender;
 
 	@NotBlank
-	@Size(max = 255)
+	@Length(max = 255)
 	@Column(nullable = false)
 	private String physicianName;
 
@@ -48,10 +53,15 @@ public class Exam extends BaseEntity {
 	private Long physicianCrm;
 
 	@NotBlank
-	@Size(max = 255)
+	@Length(max = 255)
 	@Column(nullable = false)
 	private String procedureName;
 
+	@NotNull
 	@ManyToOne(fetch = LAZY, optional = false)
 	private HealthcareInstitution healthcareInstitution;
+		
+	@JsonIgnore
+	@Column(nullable = false)
+	private boolean read;
 }

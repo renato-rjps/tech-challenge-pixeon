@@ -52,6 +52,7 @@ public class BaseEntity  implements Persistable<Long>, Serializable {
 	/**
 	 * Mapeamento da data de criação de um registro para auditoria
 	 */
+	@JsonIgnore
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdDate;
@@ -59,6 +60,7 @@ public class BaseEntity  implements Persistable<Long>, Serializable {
 	/**
 	 * Mapeamento da data de edição de um registro para auditoria
 	 */
+	@JsonIgnore
 	@LastModifiedDate
 	@Column(nullable = false)
 	private LocalDateTime modifiedDate;
@@ -66,6 +68,7 @@ public class BaseEntity  implements Persistable<Long>, Serializable {
 	/**
 	 * Flag utilizada para exclusão lógica de registros do sistema
 	 */
+	@JsonIgnore
 	@Column(nullable = false)
 	private boolean enabled = true;
 }

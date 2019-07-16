@@ -3,16 +3,21 @@ package br.com.rjps.examapi.model;
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CNPJ;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +25,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @SequenceGenerator(name = "PRIMARY_KEY", sequenceName = "INSTITUTION_ID_SEQ", allocationSize = 1)
 public class HealthcareInstitution extends BaseEntity {
 
@@ -34,11 +40,12 @@ public class HealthcareInstitution extends BaseEntity {
 	@Column(length = 20, nullable = false, unique = true)
 	private String cnpj;
 
+	@JsonBackReference()
 	@OneToMany(mappedBy = "healthcareInstitution", fetch = LAZY, cascade = ALL)
-	public Set<Exam> exams;
+	public Collection<Exam> exams;
 	
+	@JsonIgnore
 	@NotNull
-	@Size(max = 1000)
 	private Integer coins;
 
 }
