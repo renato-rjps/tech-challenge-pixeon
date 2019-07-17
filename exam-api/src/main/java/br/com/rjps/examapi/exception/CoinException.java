@@ -8,7 +8,7 @@ public class CoinException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	public CoinException() {
-		super("Budget exceeded!");
+	public CoinException(String message) {
+		super(message);
 	}
 }

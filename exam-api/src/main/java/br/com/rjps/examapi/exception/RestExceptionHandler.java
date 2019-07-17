@@ -25,15 +25,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.rjps.examapi.config.MessageKeys;
+import br.com.rjps.examapi.service.MessageService;
+import lombok.AllArgsConstructor;
+
 /**
  * Componente especializado em tratar exceções da API.
  * 
  * @author Renato Santos
  * 
  */
+@AllArgsConstructor
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+	
+	private MessageService messageService;
 
 	@ExceptionHandler({ Exception.class })
 	public ResponseEntity<Object> generic(Exception ex, WebRequest request) {
@@ -57,7 +64,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<Object> handleConstraintViolation(Exception ex, WebRequest request) {
 		Throwable cause = getErrorCause(ex);	    
 		List<String> errors = getErros(cause);
-		RestApiError apiError = new RestApiError(BAD_REQUEST, "Invalid Request", errors);
+		RestApiError apiError = new RestApiError(BAD_REQUEST, messageService.get(MessageKeys.INVALID_REQUEST), errors);
 		return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
 	
@@ -65,8 +72,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
-		Throwable throwable = ((HttpMessageNotReadableException) ex).getRootCause();
-		List<String> erros = new ArrayList<String>();
+		Throwable throwable = ex.getRootCause();
+		List<String> erros = new ArrayList<>();
 		
 		while (throwable != null) {
 			erros.add(throwable.getMessage());
