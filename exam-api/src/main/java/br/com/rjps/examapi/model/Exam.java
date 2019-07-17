@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Max;
@@ -32,7 +33,7 @@ public class Exam extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@NotBlank
-	@Length(min=1, max = 255)
+	@Length(min = 1, max = 255)
 	@Column(nullable = false)
 	private String patientName;
 
@@ -59,8 +60,9 @@ public class Exam extends BaseEntity {
 
 	@NotNull
 	@ManyToOne(fetch = LAZY, optional = false)
+	@JoinColumn(updatable = false, nullable = false)
 	private HealthcareInstitution healthcareInstitution;
-		
+
 	@JsonIgnore
 	@Column(nullable = false)
 	private boolean read;

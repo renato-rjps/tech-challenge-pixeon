@@ -16,7 +16,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,6 +35,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
+	@ExceptionHandler({ Exception.class })
+	public ResponseEntity<Object> generic(Exception ex, WebRequest request) {
+		RestApiError apiError = new RestApiError(BAD_REQUEST, ex.getMessage(), Collections.emptyList());
+		return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+	}
+	
 	@ExceptionHandler({ ResourceNotFoundException.class })
 	public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
 		RestApiError apiError = new RestApiError(NOT_FOUND, ex.getMessage(), Collections.emptyList());
@@ -50,6 +58,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		Throwable cause = getErrorCause(ex);	    
 		List<String> errors = getErros(cause);
 		RestApiError apiError = new RestApiError(BAD_REQUEST, "Invalid Request", errors);
+		return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
+	}
+	
+	@Override
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		
+		Throwable throwable = ((HttpMessageNotReadableException) ex).getRootCause();
+		List<String> erros = new ArrayList<String>();
+		
+		while (throwable != null) {
+			erros.add(throwable.getMessage());
+			throwable = throwable.getCause();
+		}
+
+		RestApiError apiError = new RestApiError(BAD_REQUEST, "Invalid Request", erros);
 		return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
 	}
 

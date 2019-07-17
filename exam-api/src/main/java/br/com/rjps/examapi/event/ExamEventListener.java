@@ -36,5 +36,5 @@ public class ExamEventListener extends AbstractRepositoryEventListener<Exam>{
 		HealthcareInstitution institution = exam.getHealthcareInstitution();
 		examHandlerService.collectCoins(institution);
 	}
-			
+				
 }
