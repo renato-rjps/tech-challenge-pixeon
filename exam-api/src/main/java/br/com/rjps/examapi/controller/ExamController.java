@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.rjps.examapi.model.Exam;
-import br.com.rjps.examapi.service.CoinCollectorService;
+import br.com.rjps.examapi.service.ExamHandlerService;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RepositoryRestController
 public class ExamController {
 	
-	private @NotNull CoinCollectorService coinCollectorService;
+	private @NotNull ExamHandlerService coinCollectorService;
 	
 	@GetMapping("/exams/{id}")
     public @ResponseBody ResponseEntity<?> getExam(@PathVariable("id") Long id) {

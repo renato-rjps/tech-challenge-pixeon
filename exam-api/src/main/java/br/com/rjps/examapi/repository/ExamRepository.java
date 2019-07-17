@@ -15,4 +15,7 @@ public interface ExamRepository extends CrudRepository<Exam, Long> {
 
 	@RestResource(exported=false)
 	Optional<Exam> findByIdAndHealthcareInstitution_id(Long id, Long institutionId);
+	
+	@RestResource(exported=false)
+	Optional<Exam> findByHealthcareInstitution_id(Long id);
 }

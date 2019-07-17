@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 @Transactional
-public class CoinCollectorService {
+public class ExamHandlerService {
 
 	private @NotNull ExamRepository examRepository;
 	private @NotNull HealthcareInstitutionRepository institutionRepository;

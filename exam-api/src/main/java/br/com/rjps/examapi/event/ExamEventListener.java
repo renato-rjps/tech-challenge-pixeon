@@ -8,21 +8,25 @@ import org.springframework.stereotype.Component;
 import br.com.rjps.examapi.exception.CoinException;
 import br.com.rjps.examapi.model.Exam;
 import br.com.rjps.examapi.model.HealthcareInstitution;
-import br.com.rjps.examapi.repository.HealthcareInstitutionRepository;
+import br.com.rjps.examapi.service.ExamHandlerService;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Component
 public class ExamEventListener extends AbstractRepositoryEventListener<Exam>{
 	
-	private @NotNull HealthcareInstitutionRepository institutionRepository;
+	private @NotNull ExamHandlerService examHandlerService;
 	
 	@Override
 	protected void onBeforeCreate(Exam exam) {
-		HealthcareInstitution institution = exam.getHealthcareInstitution();
-		Integer budget  = institution.getCoins();
+		if(exam.getHealthcareInstitution() == null) {
+			return;
+		}
 		
-		if (--budget < 0) {
+		HealthcareInstitution institution = exam.getHealthcareInstitution();
+		Integer budget  = institution.getCoins() - 1;
+		
+		if (budget < 0) {
 			throw new CoinException();
 		}
 	}
@@ -30,9 +34,7 @@ public class ExamEventListener extends AbstractRepositoryEventListener<Exam>{
 	@Override
 	protected void onAfterCreate(Exam exam) {
 		HealthcareInstitution institution = exam.getHealthcareInstitution();
-		Integer budget  = institution.getCoins();
-		institution.setCoins(--budget);		
-		institutionRepository.save(institution);
+		examHandlerService.collectCoins(institution);
 	}
 			
 }
