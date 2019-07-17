@@ -1,11 +1,10 @@
 package br.com.rjps.examapi.service;
 
-import java.util.Locale;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class MessageService {
 
 	@PostConstruct
 	private void init() {
-		accessor = new MessageSourceAccessor(messageSource, Locale.ENGLISH);
+		accessor = new MessageSourceAccessor(messageSource, LocaleContextHolder.getLocale());
 	}
 
 	public String get(String code) {
