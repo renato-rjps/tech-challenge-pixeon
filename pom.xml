@@ -26,6 +26,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
 		<javafaker.version>0.18</javafaker.version>
+		<docker.image.prefix>pixeon</docker.image.prefix>
 	</properties>
 
 	<modules>
