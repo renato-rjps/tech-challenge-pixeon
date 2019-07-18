@@ -18,7 +18,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -63,7 +64,7 @@ public class Exam extends BaseEntity {
 	@JoinColumn(updatable = false, nullable = false)
 	private HealthcareInstitution healthcareInstitution;
 
-	@JsonIgnore
+	@JsonProperty(access = Access.READ_ONLY)
 	@Column(nullable = false)
 	private boolean read;
 }

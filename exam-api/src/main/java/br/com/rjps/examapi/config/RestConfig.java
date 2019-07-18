@@ -7,7 +7,9 @@ import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.HttpMethod.TRACE;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.mapping.ExposureConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -31,6 +33,10 @@ public class RestConfig implements RepositoryRestConfigurer {
         		Exam.class, 
         		HealthcareInstitution.class);
 	}
-	
+
+	@Bean
+	public SpelAwareProxyProjectionFactory projectionFactory() {
+		return new SpelAwareProxyProjectionFactory();
+	}
 	
 }

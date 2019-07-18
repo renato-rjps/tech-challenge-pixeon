@@ -17,7 +17,8 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -42,9 +43,9 @@ public class HealthcareInstitution extends BaseEntity {
 
 	@JsonBackReference()
 	@OneToMany(mappedBy = "healthcareInstitution", fetch = LAZY, cascade = ALL)
-	public Collection<Exam> exams;
+	private Collection<Exam> exams;
 	
-	@JsonIgnore
+	@JsonProperty(access = Access.READ_ONLY)
 	@NotNull
 	private Integer coins;
 

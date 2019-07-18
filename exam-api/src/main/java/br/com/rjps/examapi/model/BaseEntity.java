@@ -16,6 +16,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.Persistable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -52,7 +54,7 @@ public class BaseEntity  implements Persistable<Long>, Serializable {
 	/**
 	 * Mapeamento da data de criação de um registro para auditoria
 	 */
-	@JsonIgnore
+	@JsonProperty(access = Access.READ_ONLY)
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
 	private LocalDateTime createdDate;
@@ -60,7 +62,7 @@ public class BaseEntity  implements Persistable<Long>, Serializable {
 	/**
 	 * Mapeamento da data de edição de um registro para auditoria
 	 */
-	@JsonIgnore
+	@JsonProperty(access = Access.READ_ONLY)
 	@LastModifiedDate
 	@Column(nullable = false)
 	private LocalDateTime modifiedDate;
@@ -68,7 +70,7 @@ public class BaseEntity  implements Persistable<Long>, Serializable {
 	/**
 	 * Flag utilizada para exclusão lógica de registros do sistema
 	 */
-	@JsonIgnore
+	@JsonProperty(access = Access.READ_ONLY)
 	@Column(nullable = false)
 	private boolean enabled = true;
 }
