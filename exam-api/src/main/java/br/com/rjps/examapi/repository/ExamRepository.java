@@ -1,5 +1,6 @@
 package br.com.rjps.examapi.repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,4 +23,7 @@ public interface ExamRepository extends CrudRepository<Exam, Long> {
 	
 	@RestResource(exported=false)
 	List<Exam> findAllByHealthcareInstitution_id(Long id);
+	
+	@RestResource(exported=false)
+	<T> Collection<T> findAllProjectedBy(Class<T> projectionClass);
 }

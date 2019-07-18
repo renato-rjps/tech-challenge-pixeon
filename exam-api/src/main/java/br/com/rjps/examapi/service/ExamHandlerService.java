@@ -59,8 +59,6 @@ public class ExamHandlerService {
 	 * @return {@link Exam}
 	 */
 	public Exam getExam(Long id) {
-//		Optional<ExamListProjection> map = examRepository.findById(id)
-//			      .map(exam -> projectionFactory.createProjection(ExamListProjection.class, exam));
 		Optional<Exam> exam = examRepository.findById(id);
 		canReadExam(exam);
 		return exam.get();

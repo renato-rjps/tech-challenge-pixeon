@@ -21,12 +21,11 @@
 	<url>https://github.com/renato-rjps/tech-challenge-pixeon</url>
 
 	<properties>
-		
-		
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+		<javafaker.version>0.18</javafaker.version>
 	</properties>
 
 	<modules>
@@ -39,6 +38,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>${javafaker.version}</version>
 			<scope>test</scope>
 		</dependency>
 		
