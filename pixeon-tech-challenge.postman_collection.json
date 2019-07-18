@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "7f49c881-ad90-41e5-b767-a2ced928e3b1",
+		"name": "pixeon-tech-challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "healthcare-institutions",
+			"item": [
+				{
+					"name": "FIND ONE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/healthcareInstitutions/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"healthcareInstitutions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND ALL EXAM BY INSTITUTION ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/healthcareInstitutions/1/exams",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"healthcareInstitutions",
+								"1",
+								"exams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND ONE EXAM BY ID AND INSTITUTION ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/healthcareInstitutions/1/exams/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"healthcareInstitutions",
+								"1",
+								"exams",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/healthcareInstitutions",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"healthcareInstitutions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Hospital Celso Ramos\",\n    \"cnpj\": \"23.169.082/0001-06\"\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/healthcareInstitutions",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"healthcareInstitutions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "exams",
+			"item": [
+				{
+					"name": "FIND ONE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{API_URL}}/exams/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"exams",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"physicianName\": \"Test{{$randomInt}}\",\n    \"physicianCrm\":{{$randomInt}},\n    \"healthcareInstitution\": \"healthcareInstitutions/1\",\n    \"patientName\": \"Test{{$randomInt}}\",\n    \"procedureName\": \"Test{{$randomInt}}\"\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/exams",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"exams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"patientAge\": 30,\n    \"patientGender\": \"MALE\"\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/exams/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"exams",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Hospital Celso Ramos\"\n}"
+						},
+						"url": {
+							"raw": "{{API_URL}}/exams/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"exams",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API ROOT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{API_URL}}",
+					"host": [
+						"{{API_URL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "INSTANCE-ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{API_URL}}/info",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"info"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "320d0102-8251-4cef-ab1f-335818c55c68",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b5d0e8bc-ddd8-43a2-96d9-6f9ca8b538d5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "db9d599e-92bb-4220-83bb-a0c6be5ba0f3",
+			"key": "API_URL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
