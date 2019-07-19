@@ -110,16 +110,17 @@ Para saber quais exames pertencem a uma instituição é necessário consultar a
 
 Essa aplicação esta utilizando Hypermedia As The Engine Of Application State (HATEOAS). E por tanto, é necessário seguir os princípios do HATEOAS para utilizar a API. Para criar um relacionamento por exemplo você deve informar o link do relacionamento e não apenas o id. Veja o exemplo abaixo: 
 
-{
+`{
 	"physicianName": "Nome",
     "physicianCrm":123,
     "healthcareInstitution": "healthcareInstitutions/1",
     "patientName": "Nome",
     "procedureName": "Nome"
-}
+}`
 
 Para saber mais sobre HATEOAS e HAL acesse os links: 
 
 [Passos em direção à glória do REST](https://martinfowler.com/articles/richardsonMaturityModel.html)
 
 [Hipermídia enxuta](http://stateless.co/hal_specification.html) 
+
