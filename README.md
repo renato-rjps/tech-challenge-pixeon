@@ -40,22 +40,22 @@ Esse projeto está utilizando diversas técnologias ofereciadas pelo framework S
 
 Abaixo estão listados os passos necessários para rodar o projeto.
 
-1 - Baixar o projeto do repositório através do comando: git clone https://github.com/renato-rjps/tech-challenge-pixeon.git
+1. Baixar o projeto do repositório através do comando: git clone https://github.com/renato-rjps/tech-challenge-pixeon.git
 
-2 - Após baixar o projeto acessar a pasta root através do comando: cd tech-challenge-pixeon
+2. Após baixar o projeto acessar a pasta root através do comando: cd tech-challenge-pixeon
 
-3 - Após acessar a estrutura raiz do projeto, é necessário realizar o build do projeto através do comando:  mvn clean install
+3. Após acessar a estrutura raiz do projeto, é necessário realizar o build do projeto através do comando:  mvn clean install
 
-4 -  Agora iremos executar o projeto que representa o service-discovery através do comando: java -jar discovery/target/discovery-1.0.0.jar
+4. Agora iremos executar o projeto que representa o service-discovery através do comando: java -jar discovery/target/discovery-1.0.0.jar
 
-5 -  Antes de executar essa etapa tenha certeza que o serviço anterior já  está de pé. Abra uma nova janela do prompt e agora vamos executar o projeto que representa a api-gateway através do comando: java -jar gateway/target/gateway-1.0.0.jar
+5. Antes de executar essa etapa tenha certeza que o serviço anterior já  está de pé. Abra uma nova janela do prompt e agora vamos executar o projeto que representa a api-gateway através do comando: java -jar gateway/target/gateway-1.0.0.jar
 
-6 -  O ultimo passo é executar o serviço que representa a API de negócio. Abra uma nova janela do prompt e execute o comando : java -jar exam-api/target/exam-api-1.0.0.jar. Vale ressaltar que podem ser levantadas várias instancias desse serviço, não é necessário informar a porta, basta apenas executar o mesmo comando em uma nova janela do prompt. 
+6. O ultimo passo é executar o serviço que representa a API de negócio. Abra uma nova janela do prompt e execute o comando : java -jar exam-api/target/exam-api-1.0.0.jar. Vale ressaltar que podem ser levantadas várias instancias desse serviço, não é necessário informar a porta, basta apenas executar o mesmo comando em uma nova janela do prompt. 
 
-7 - Acesse através do seu navegador o endereço http://:localhost:8080 . Você deverá acessar o HAL Browser  da aplicação.
+7. Acesse através do seu navegador o endereço http://:localhost:8080 . Você deverá acessar o HAL Browser  da aplicação.
 
-OBS: É necessário esperar alguns segundos para que uma instancia se registre no service-discovery.
-Por isso, caso você se depare com um erro 503 não se preocupe, aguarde alguns segundos e tente acessar novamente. 
+> OBS: É necessário esperar alguns segundos para que uma instancia se registre no service-discovery.
+> Por isso, caso você se depare com um erro 503 não se preocupe, aguarde alguns segundos e tente acessar novamente. 
 
 ### Postman 
 
@@ -67,7 +67,7 @@ Após isso basta bricar com as chamadas para a API.
 
 ### H2
 
-> *Para simplificar a utilização desse projeto foi configurado o H2 em menória. No entanto, caso queira testar mutiplas instancias do serviço exam-api é necessário instalar o h2 na maquina ou utlizar uma instancia única do banco de dados de sua preferência.*
+> *Para simplificar a utilização desse projeto foi configurado o H2 em menória. No entanto, caso queira testar mutiplas instancias do serviço exam-api é necessário instalar o h2 na maquina ou utlizar uma instancia única do banco de dados de sua preferência.* 
 
 Esse projeto está utilizando o H2 em memória. Para acessar  o console do h2 basta acessar o endereço http://localhost:8080/h2-console. 
 
@@ -76,6 +76,20 @@ JDBC url: jdbc:h2:mem:pixeon
 Usuário: Sa 
 
 Senha:  
+
+### PostgreSQL
+
+O projeto possui um profile do spring configurado para rodar com PostgreSql, para isso basta rodar a aplicação da seguinte forma: java -Dspring.profiles.active=postgres -jar exam-api/target/exam-api-1.0.0.jar
+
+Caso seja necessário mudar o usuário,senha e url do banco basta passar as seguintes variáves ao subri a aplicação:
+
+> -Dspring.datasource.url=jdbc:postgresql://192.168.99.100:5432/pixeon
+> -Dspring.datasource.username=postgres
+> -Dspring.datasource.password=
+
+`java -Dspring.profiles.active=postgres -Dspring.datasource.url=jdbc:postgresql://192.168.99.100:5432/pixeon
+-Dspring.datasource.username=postgres
+-Dspring.datasource.password=123456 -jar exam-api/target/exam-api-1.0.0.jar`
 
 ### Observações 
 
