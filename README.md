@@ -5,27 +5,27 @@ Regras do desafio técnico [Project Roles](https://github.com/Pixeon/tech-challe
 
 Esse projeto possui uma arquitetura baseada em micro serviços utilizando como base ferramentas oferecidas pelo framework Spring.
 
-O projeto é composto por três modúlos, são eles:
+O projeto é composto por três módulos, são eles:
 
 * Discovery - Este projeto é o service-discovery e é onde os serviços são registrados
 * Gateway - Esse projeto possui duas funcionalidades que consistem em funcionar como uma API-Gateway e balancear as chamadas para os serviços. 
-* Exam-API -  Esse é o projeto que possui a lógia do negócio conforme requisitos do projeto. 
+* Exam-API -  Esse é o projeto que possui a lógica do negócio conforme requisitos do projeto. 
 
-Os projetos mencionados acima estão utilizando uma estrutura de parent-pom para melhor organizar o build e dependencias do projeto.
+Os projetos mencionados acima estão utilizando uma estrutura de parent-pom para melhor organizar o build e dependências do projeto.
 
 
 
 ### Tecnologias Utilizadas
 
-Esse projeto está utilizando diversas técnologias ofereciadas pelo framework Spring, entre elas vale destacar as seguintes: 
+Esse projeto está utilizando diversas tecnologias oferecidas pelo framework Spring, entre elas vale destacar as seguintes: 
 
-* Spring Data JPA - Aborta o conceito de repositories e simplifica a implementação JPA no projeto.
-* Spring HATEOAS - API que possibilita a criação de APIs REST seguindo os pincípios do HATEOAS. [Leia mais](https://martinfowler.com/articles/richardsonMaturityModel.html)
-* Spring Data REST - API poderosa que reduz significamente a quantidade de código boilerplate em uma API desenvolvida com Spring.
+* Spring Data JPA - Aborda o conceito de repositórios e simplifica a implementação JPA no projeto.
+* Spring HATEOAS - API que possibilita a criação de APIs REST seguindo os princípios do HATEOAS. [Leia mais](https://martinfowler.com/articles/richardsonMaturityModel.html)
+* Spring Data REST - API poderosa que reduz significantemente a quantidade de código boilerplate code em uma API desenvolvida com Spring.
 *  Spring Cloud Gateway - Biblioteca para criar um gateway de API.
 * Spring Cloud Netflix - Integrações do Netflix OSS para o Spring Boot. 
-* Spring Actuator - Biblioteca que possibilida adicionar a aplicação a capacidade de coletar métricas, tráfego , estado do banco de dados etc.
-* Spring Hal Browser - Biblioteca que adiciona ao projeto a capacidade de se testar a API Rest de forma simples. Semelhante ao swagger só que para a artuitetura HATEOAS. [Leia mais](http://stateless.co/hal_specification.html) 
+* Spring Actuator - Biblioteca que possibilita adicionar a aplicação a capacidade de coletar métricas, tráfego , estado do banco de dados etc.
+* Spring Hal Browser - Biblioteca que adiciona ao projeto a capacidade de se testar a API Rest de forma simples. Semelhante ao swagger só que para a arquitetura HATEOAS. [Leia mais](http://stateless.co/hal_specification.html) 
 
 ### Curiosidades
 
@@ -34,7 +34,7 @@ Esse projeto está utilizando diversas técnologias ofereciadas pelo framework S
 - Mensagens
   - O projeto usufrui do spring-mvc e utiliza mensagens internacionalizadas através do locale do servidor. Nesse projeto só existem dois arquivos messages.properties e messages_en.properties e neles estão os termos que foram necessários para esse projeto.
 - Identificação da Instancia do Serviço
-  - Foi criado nesse projeto um serviço para retornar um identificador da instancia de uma mesma api que está sendo chamada. Isso facilida para identidicar como o loadbalancer está distribuindo as chamadas. O serviço é http://localhost:8080/info
+  - Foi criado nesse projeto um serviço para retornar um identificador da instancia de uma mesma api que está sendo chamada. Isso facilita para identificar como o loadbalancer está distribuindo as chamadas. O serviço é http://localhost:8080/info
 
 ### Como rodar o projeto?
 
@@ -63,11 +63,11 @@ Na estrutura raiz do projeto existe um arquivo com o nome 'pixeon-tech-challenge
 
 Também será necessário declarar uma variável chamada "API_URL" apontando para "http://localhost:8080" 
 
-Após isso basta bricar com as chamadas para a API.
+Após isso basta brincar com as chamadas para a API.
 
 ### H2
 
-> *Para simplificar a utilização desse projeto foi configurado o H2 em menória. No entanto, caso queira testar mutiplas instancias do serviço exam-api é necessário instalar o h2 na maquina ou utlizar uma instancia única do banco de dados de sua preferência.* 
+> *Para simplificar a utilização desse projeto foi configurado o H2 em memória. No entanto, caso queira testar múltiplas instancias do serviço exam-api é necessário instalar o h2 na maquina ou utilizar uma instancia única do banco de dados de sua preferência.* 
 
 Esse projeto está utilizando o H2 em memória. Para acessar  o console do h2 basta acessar o endereço http://localhost:8080/h2-console. 
 
@@ -79,13 +79,19 @@ Senha:
 
 ### PostgreSQL
 
-O projeto possui um profile do spring configurado para rodar com PostgreSql, para isso basta rodar a aplicação da seguinte forma: java -Dspring.profiles.active=postgres -jar exam-api/target/exam-api-1.0.0.jar
+O projeto possui um profile do Spring configurado para rodar com PostgreSql, para isso basta rodar a aplicação da seguinte forma: java -Dspring.profiles.active=postgres -jar exam-api/target/exam-api-1.0.0.jar
 
-Caso seja necessário mudar o usuário,senha e url do banco basta passar as seguintes variáves ao subri a aplicação:
+Caso seja necessário mudar (usuário,senha ou url) do banco de dados, basta passar as seguintes variáveis ao subir a aplicação:
 
 > -Dspring.datasource.url=jdbc:postgresql://192.168.99.100:5432/pixeon
+>
 > -Dspring.datasource.username=postgres
+>
 > -Dspring.datasource.password=
+
+
+
+Exemplo:
 
 `java -Dspring.profiles.active=postgres -Dspring.datasource.url=jdbc:postgresql://192.168.99.100:5432/pixeon
 -Dspring.datasource.username=postgres
@@ -95,14 +101,14 @@ Caso seja necessário mudar o usuário,senha e url do banco basta passar as segu
 
 #### Regras de Negócio
 
-Para saber quais exames pertecem a uma instituição é necessário consultar a listagem de exames de uma determinada intituição. Como não existia uma regra nos requisitos para essa situação o serviço que lista os exames não desconta do budget, apenas será descontado do budget quando for consultado um exame específico passado o id do exame. Porém, caso o budget já tenha exedido será aplicada a seguinte regra: 
+Para saber quais exames pertencem a uma instituição é necessário consultar a listagem de exames de uma determinada instituição. Como não existia uma regra nos requisitos para essa situação o serviço que lista os exames não desconta do budget, apenas será descontado do budget quando for consultado um exame específico passado o id do exame. Porém, caso o budget já tenha excedido será aplicada a seguinte regra: 
 
 - Já visualizou algum exame? exibe só os que já foram lidos 
 - Não visualizou nenhum exame? Exibe mensagem de erro.
 
 #### Cadastro de Registros Com Relacionamento
 
-Essa aplicação esta utilizando Hypermedia As The Engine Of Application State (HATEOAS). E por tanto, é necessário seguir os principios do HATEOAS para utilizar a API. Para criar um relacionamento por exemplo você deve informar o link do relacionamento e não apenas o id. Veja o exemplo abaixo: 
+Essa aplicação esta utilizando Hypermedia As The Engine Of Application State (HATEOAS). E por tanto, é necessário seguir os princípios do HATEOAS para utilizar a API. Para criar um relacionamento por exemplo você deve informar o link do relacionamento e não apenas o id. Veja o exemplo abaixo: 
 
 {
 	"physicianName": "Nome",
