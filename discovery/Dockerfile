@@ -1,5 +1,4 @@
 FROM openjdk:8
 VOLUME /tmp
 ADD discovery/target/discovery-1.0.0.jar discovery-1.0.0.jar
-EXPOSE 8761
 ENTRYPOINT ["java","-jar","discovery-1.0.0.jar"]

@@ -1,0 +1,32 @@
+server: 
+  port: ${SERVER_PORT:8080}
+  use-forward-headers: true
+
+spring:   
+  application: 
+    name: pixeon-gateway 
+    
+  cloud: 
+    gateway: 
+      discovery:
+        locator: 
+          enabled: true
+          lower-case-service-id: true
+          
+      routes: 
+       - id: exam-api
+         uri: lb://PIXEON-EXAM-API
+         predicates: 
+         - Path=/**
+    
+eureka:
+  instance:
+    nonSecurePort: ${server.port}
+    preferIpAddress: true
+    ip-address: ${SERVER_URI:localhost}
+    instanceId: ${spring.application.name}
+    metadataMap:
+      instanceId: ${spring.application.name}
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}        

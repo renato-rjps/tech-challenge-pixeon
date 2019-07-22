@@ -1,35 +1,61 @@
 version: '3'
 
 services:
+  pixeon-postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+
   pixeon-discovery:
     image: pixeon-discovery:latest
     build:
       context: ./
-      dockerfile: Dockerfile.discovery
+      dockerfile: discovery/Dockerfile
     volumes:
       - /data/pixeon-discovery
     ports:
       - "8761:8761"
-      
+          
   pixeon-gateway:
     image: pixeon-gateway:latest
     build:
       context: ./
-      dockerfile: Dockerfile.gateway
-    volumes:
+      dockerfile: gateway/Dockerfile
+    volumes: 
       - /data/pixeon-gateway
+    environment:
+      - SERVER_URI=192.168.99.100
+      - EUREKA_URI=http://192.168.99.100:8761/eureka
     ports:
       - "8080:8080"
+    depends_on:
+      - pixeon-discovery
   
-  pixeon-exam-api:
+  pixeon-exam-api: 
     image: pixeon-exam-api:latest
     build:
       context: ./
-      dockerfile: Dockerfile.exam-api
+      dockerfile: exam-api/Dockerfile
     volumes:
       - /data/pixeon-exam-api
     environment:
-      - API_SERVER_PORT=8081
+      - SERVER_PORT=8081
+      - SERVER_URI=192.168.99.100
+      - EUREKA_URI=http://192.168.99.100:8761/eureka
     ports:
       - "8081:8081"
+    depends_on:
+      - pixeon-discovery
+      - pixeon-gateway
+      
+  pixeon-exam-api-2: 
+    image: pixeon-exam-api:latest
+    environment:
+      - SERVER_PORT=8082
+      - SERVER_URI=192.168.99.100
+      - EUREKA_URI=http://192.168.99.100:8761/eureka
+    ports:
+      - "8082:8082"
+    depends_on:
+      - pixeon-exam-api
       
