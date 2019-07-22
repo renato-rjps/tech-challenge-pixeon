@@ -1,7 +1,3 @@
----
-typora-root-url: ./
----
-
 # Tech Challenge Pixeon
 Regras do desafio técnico [Project Roles](https://github.com/Pixeon/tech-challenge)
 
