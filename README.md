@@ -1,3 +1,7 @@
+---
+typora-root-url: ./
+---
+
 # Tech Challenge Pixeon
 Regras do desafio técnico [Project Roles](https://github.com/Pixeon/tech-challenge)
 
@@ -56,6 +60,16 @@ Abaixo estão listados os passos necessários para rodar o projeto.
 
 > OBS: É necessário esperar alguns segundos para que uma instancia se registre no service-discovery.
 > Por isso, caso você se depare com um erro 503 não se preocupe, aguarde alguns segundos e tente acessar novamente. 
+
+
+
+#### Docker
+
+Caso você possua o docker instalado basta abrir o terminal e executar o start.sh para máquinas windows ou start-linux.sh para máquinas linux e aguardar. Após alguns minutos será montado um ambiente com duas instancias da api back-end configuradas com uma imagem do postgres como fonte de dados. 
+
+Quando o script finalizar o build e publicação das imagens docker acesse o service-discovery através do endereço `localhost:8761` e aguarde até que todos os serviços estejam registrados conforme imagem abaixo:
+
+![eureka](/eureka.jpg)
 
 ### Postman 
 

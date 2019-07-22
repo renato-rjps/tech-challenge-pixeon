@@ -16,15 +16,15 @@ docker rmi pixeon-exam-api:latest pixeon-gateway:latest pixeon-discovery:latest 
 sleep 10
 
 echo "Criando a Base de Dados"
-docker-compose up -d pixeon-postgres
+docker-compose -f docker-compose-linux.yml up -d pixeon-postgres
 sleep 40
 
 echo "Criando o Service Discovery"
-docker-compose up -d pixeon-discovery
+docker-compose -f docker-compose-linux.yml up -d pixeon-discovery
 sleep 40
 
 echo "Iniciando as aplicações"
-docker-compose up -d pixeon-gateway pixeon-exam-api pixeon-exam-api-2
+docker-compose -f docker-compose-linux.yml up -d pixeon-gateway pixeon-exam-api pixeon-exam-api-2
 sleep 90
 echo "###################################"
 echo "Aplicações iniciadas com sucesso"
